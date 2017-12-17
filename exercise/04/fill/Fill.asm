@@ -12,3 +12,57 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+(BEGIN)  
+  
+@KBD  
+D = M  
+@CLEAN  
+D;JEQ  
+  
+@SCREEN          //黑   
+D = A  
+@Bcount  
+A = M + D  
+M = -1  
+  
+@Bcount          //鍵盤按下  
+M = M + 1  
+D = M  
+@8192            //8K  
+D = D - A  
+@Bcount  
+M = D  
+@END  
+D;JGE  
+@8192  
+D = D + A  
+@Bcount  
+M = D  
+@END  
+0;JMP  
+  
+(CLEAN)          //無鍵盤按下   
+  
+@SCREEN          //白
+D = A  
+@Wcount  
+A = M + D  
+M = 0  
+  
+@Wcount          //鍵盤按下
+M = M + 1  
+D = M  
+@8192            //8K  
+D = D - A  
+@Wcount  
+M = D  
+@END  
+D;JGE  
+@8192  
+D = D + A  
+@Wcount  
+M = D  
+  
+(END)  
+@BEGIN  
+0;JMP  
